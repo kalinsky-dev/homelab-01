@@ -9,17 +9,16 @@ services:
     restart: unless-stopped
 
     ports:
-      - "8080:80"
+    - "8080:80"
 
     networks:
-      - homelab-net
+    - homelab-net
 
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost || exit 1"]    
+      test: [ "CMD-SHELL", "wget -qO- http://localhost || exit 1" ]
       interval: 30s
       timeout: 10s
       retries: 3
-
 
   postgres:
 
@@ -30,20 +29,19 @@ services:
     restart: unless-stopped
 
     env_file:
-      - .env
+    - .env
 
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+    - postgres-data:/var/lib/postgresql/data
 
     networks:
-      - homelab-net
+    - homelab-net
 
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER" ]
       interval: 30s
       timeout: 10s
       retries: 5
-
 
   redis:
 
@@ -54,14 +52,24 @@ services:
     restart: unless-stopped
 
     networks:
-      - homelab-net
+    - homelab-net
 
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 30s
       timeout: 10s
       retries: 5
 
+  whoami:
+
+    image: traefik/whoami:v1.11
+
+    container_name: whoami
+
+    restart: unless-stopped
+
+    networks:
+    - homelab-net
 
 networks:
 
@@ -71,3 +79,4 @@ networks:
 volumes:
 
   postgres-data:
+
