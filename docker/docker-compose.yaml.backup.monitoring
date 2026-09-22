@@ -74,63 +74,10 @@ services:
     networks:
     - homelab-net
 
-  prometheus:
-    
-    image: prom/prometheus:v3.5.0
-
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yaml'
-
-    container_name: prometheus
-
-    volumes:
-      - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
-    
-    ports:
-      - "9090:9090"
-
-    networks:
-      - homelab-net
-
-    restart: unless-stopped
-
-  grafana:
-
-    image: grafana/grafana:12.1.1
-
-    container_name: grafana
-
-    ports:
-      - "3000:3000"
-
-    networks:
-      - homelab-net
-
-    depends_on:
-      - prometheus
-
-    restart: unless-stopped  
-
-  node-exporter:
-
-    image: prom/node-exporter:v1.9.1
-
-    container_name: node-exporter
-
-    command:
-      - '--path.rootfs=/host'
-
-    volumes:
-      - '/:/host:ro,rslave'
-
-    networks:
-      - homelab-net
-
-    restart: unless-stopped
-
 networks:
 
   homelab-net:
+
 
 volumes:
 

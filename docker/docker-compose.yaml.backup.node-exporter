@@ -78,9 +78,6 @@ services:
     
     image: prom/prometheus:v3.5.0
 
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yaml'
-
     container_name: prometheus
 
     volumes:
@@ -111,26 +108,10 @@ services:
 
     restart: unless-stopped  
 
-  node-exporter:
-
-    image: prom/node-exporter:v1.9.1
-
-    container_name: node-exporter
-
-    command:
-      - '--path.rootfs=/host'
-
-    volumes:
-      - '/:/host:ro,rslave'
-
-    networks:
-      - homelab-net
-
-    restart: unless-stopped
-
 networks:
 
   homelab-net:
+
 
 volumes:
 
