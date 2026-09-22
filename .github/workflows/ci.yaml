@@ -31,5 +31,8 @@ jobs:
       - name: Validate Docker Compose
         run: docker compose -f docker/docker-compose.yaml config
 
+      - name: Pull Docker images
+        run: docker compose -f docker/docker-compose.yaml pull
+
       - name: Check shell script syntax
         run: bash -n scripts/healthcheck.sh
