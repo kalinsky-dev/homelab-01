@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate repository structure
+        run: |
+          test -f README.md
+          test -f docker/docker-compose.yaml
+          test -f scripts/healthcheck.sh
+
+      - name: Validate Docker Compose
+        run: docker compose -f docker/docker-compose.yaml config
+
+      - name: Check shell script syntax
+        run: bash -n scripts/healthcheck.sh
