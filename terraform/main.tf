@@ -29,10 +29,11 @@ resource "azurerm_virtual_network" "vnet" {
 
 # Subnet
 resource "azurerm_subnet" "internal_subnet" {
-  name                 = "homelab-01-subnet"
-  resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.10.1.0/24"]
+  name                            = "homelab-01-subnet"
+  resource_group_name             = azurerm_resource_group.rg.name
+  virtual_network_name            = azurerm_virtual_network.vnet.name
+  address_prefixes                = ["10.10.1.0/24"]
+  default_outbound_access_enabled = false
 }
 
 # Network Security Group
