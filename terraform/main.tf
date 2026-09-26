@@ -15,13 +15,13 @@ provider "azurerm" {
 
 # Resource Group
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-homelab-01"
+  name     = "homelab-01-rg"
   location = "France Central"
 }
 
 # Virtual Network
 resource "azurerm_virtual_network" "vnet" {
-  name                = "vnet-homelab-01"
+  name                = "homelab-01-vnet"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   address_space       = ["10.10.0.0/16"]
@@ -29,7 +29,7 @@ resource "azurerm_virtual_network" "vnet" {
 
 # Subnet
 resource "azurerm_subnet" "internal_subnet" {
-  name                 = "snet-homelab-01"
+  name                 = "homelab-01-subnet"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.10.1.0/24"]
@@ -37,7 +37,7 @@ resource "azurerm_subnet" "internal_subnet" {
 
 # Network Security Group
 resource "azurerm_network_security_group" "nsg" {
-  name                = "nsg-homelab-01"
+  name                = "homelab-01-nsg"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 }
